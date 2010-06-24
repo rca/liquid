@@ -10,6 +10,7 @@ PKG_DESC    = "A secure non evaling end user template engine with aesthetic mark
 Rake::TestTask.new(:test) do |t|
   t.libs << "lib"
   t.libs << "test"
+  t.libs << "."
   t.pattern = 'test/*_test.rb'
   t.verbose = false
 end
