@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 require File.dirname(__FILE__) + '/helper'
+require 'ruby-debug'
 
 module MoneyFilter
   def money(input)
@@ -39,9 +40,9 @@ class FiltersTest < Test::Unit::TestCase
   #  assert_match /Error - filter 'money'/, Variable.new("var | money").render(@context)
   #end
 
-  def test_nonexistent_filter
+  def test_nonexistent_filter_is_ignored
     @context['var'] = 1000
-    assert_raises(FilterNotFound) { Variable.new("var | xyzzy").render(@context) }
+    assert_equal 1000, Variable.new("var | xyzzy").render(@context)
   end
 
   def test_local_filter

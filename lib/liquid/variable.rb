@@ -39,11 +39,8 @@ module Liquid
         filterargs = filter[1].to_a.collect do |a|
           context[a]
         end
-        begin
-          context.invoke(filter[0], output, *filterargs)
-        rescue FilterNotFound
-          raise FilterNotFound, "Error - filter '#{filter[0]}' in '#{@markup.strip}' could not be found."
-        end
+
+        context.invoke(filter[0], output, *filterargs)
       end
     end
 
