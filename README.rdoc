@@ -29,7 +29,15 @@ Liquid is a template engine which I wrote for very specific requirements
 	  {% endfor %}  
 	</ul>
 
-== Howto use Liquid
+== How to install Liquid
+
+gem install liquid
+
+With bundler, please add the following dependency to your Gemfile: gem 'liquid'
+
+Followed by the all familiar: bundle install
+
+== How to use Liquid (insanely basic usage)
 
 Liquid supports a very simple API based around the Liquid::Template class.
 For standard use you can just pass it the content of a file and call render with a parameters hash. 
