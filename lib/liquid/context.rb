@@ -233,7 +233,7 @@ module Liquid
     
     def lookup_and_evaluate(obj, key)
       if (value = obj[key]).is_a?(Proc) && obj.respond_to?(:[]=)
-        obj[key] = value.call(self)
+        obj[key] = (value.arity == 0) ? value.call : value.call(self)
       else
         value
       end
