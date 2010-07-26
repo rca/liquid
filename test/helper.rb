@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 $LOAD_PATH.unshift(File.dirname(__FILE__)+ '/extra')
 
+require 'rubygems'
 require 'test/unit'
 require 'test/unit/assertions'
 require 'caller'
