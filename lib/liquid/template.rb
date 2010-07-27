@@ -46,6 +46,17 @@ module Liquid
         template.parse(source)
         template
       end
+
+      def tokenize(source)
+        source = source.source if source.respond_to?(:source)
+        return [] if source.to_s.empty?
+        tokens = source.split(TemplateParser)
+
+        # removes the rogue empty element at the beginning of the array
+        tokens.shift if tokens[0] and tokens[0].empty?
+
+        tokens
+      end
     end
 
     # creates a new <tt>Template</tt> from an array of tokens. Use <tt>Template.parse</tt> instead
