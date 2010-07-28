@@ -1,11 +1,11 @@
 module Liquid
-  class ExtendsTag < Tag
+  class ExtendsTag < Block
     Syntax = /(#{QuotedFragment}+)/
-  
+
     def initialize(tag_name, markup, tokens)
       if markup =~ Syntax
 
-        @template_name = $1        
+        @template_name = $1
         @attributes    = {}
 
         markup.scan(TagAttributes) do |key, value|
@@ -18,14 +18,14 @@ module Liquid
 
       super
     end
-  
-    def parse(tokens)      
+
+    def parse(tokens)
+      new_tokens = Template.tokenize(Template.file_system.read_template_file(@template_name) + '{% endextends %}')
+      super(new_tokens + tokens)
     end
 
-    def override(document)
-      file_system = Liquid::Template.file_system
-      source  = file_system.read_template_file(@template_name)
-      document.parse(Liquid::Template.tokenize(source))
+    def render(context)
+      render_all(@nodelist, context)
     end
   end
 
