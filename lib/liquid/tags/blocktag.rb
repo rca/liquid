@@ -5,7 +5,7 @@ module Liquid
     def initialize(tag_name, markup, tokens)
       if markup =~ Syntax
 
-        @template_name = $1        
+        @template_name = $1
         @attributes    = {}
 
         markup.scan(TagAttributes) do |key, value|
@@ -15,13 +15,13 @@ module Liquid
       else
         raise SyntaxError.new("Error in tag 'block' - Valid syntax: block '[name]'")
       end
-      
+
       super
     end
     
     def end_tag
       block = Template.blocks[@template_name]
-      
+
       if block
         block.nodelist = @nodelist
         @nodelist = []
@@ -31,5 +31,5 @@ module Liquid
     end
   end
 
-  Template.register_tag('block', BlockTag)  
+  Template.register_tag('block', BlockTag)
 end
