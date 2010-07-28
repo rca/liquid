@@ -20,21 +20,14 @@ module Liquid
     end
     
     def end_tag
-      Template.blocks[@template_name] = self
-    end
-  
-    def render(context)
       block = Template.blocks[@template_name]
       
-      # if the block in the template blocks hash is not this, do nothing
-      if block != self
-        return
+      if block
+        block.nodelist = @nodelist
+        @nodelist = []
+      else
+        Template.blocks[@template_name] = self
       end
-      
-      super
-    end
-    
-    def tokens(document)
     end
   end
 

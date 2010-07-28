@@ -6,6 +6,8 @@ class BlockTagTest < Test::Unit::TestCase
       case template_path
       when "another_path"
         "{% block content %}Hello, World!{% endblock %}"
+      when "order"
+        "start {% block content %}content{% endblock %} end"
       else
         template_path
       end
@@ -20,5 +22,11 @@ class BlockTagTest < Test::Unit::TestCase
     document = Template.parse("{% extends another_path %}{% block content %}Hola, Mundo!{% endblock %}")
     rendered = document.render({})
     assert_equal 'Hola, Mundo!', rendered
+  end
+
+  def test_extends_order
+    document = Template.parse("{% extends order %}{% block content %}Hola, Mundo!{% endblock %}")
+    rendered = document.render({})
+    assert_equal 'start Hola, Mundo! end', rendered
   end
 end
