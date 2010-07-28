@@ -18,6 +18,8 @@ module Liquid
     @@file_system = BlankFileSystem.new
 
     class << self
+      attr_accessor :blocks
+
       def file_system
         @@file_system
       end
@@ -42,6 +44,8 @@ module Liquid
 
       # creates a new <tt>Template</tt> object from liquid source code
       def parse(source)
+        @blocks = {}
+
         template = Template.new
         template.parse(source)
         template
